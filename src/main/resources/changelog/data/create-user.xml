@@ -3,6 +3,7 @@
 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
 	<changeSet id="create-user-tables" author="mse">
 		<createTable tableName="demo_user">
 			<column name="id" autoIncrement="true" type="BIGINT">
@@ -11,6 +12,7 @@
 			<column name="email" type="VARCHAR(512)" />
 		</createTable>
 	</changeSet>
+
 	<changeSet id="dummy-user" author="mse">
 		<insert tableName="demo_user">
 			<column name="email">foo@bar.com</column>
@@ -22,6 +24,7 @@
 			<column name="email">fooBar@bar.com</column>
 		</insert>
 	</changeSet>
+
 	<changeSet id="add-columns-surname-firstname-gender"
 		author="hlaszlo">
 		<addColumn tableName="demo_user">
@@ -39,5 +42,23 @@
 			</column>
 		</addColumn>
 	</changeSet>
+
+	<changeSet id="add-organisation-foreign-key" author="hlaszlo">
+		<addColumn tableName="demo_user">
+			<column name="organisational_unit_id" type="int">
+				<constraints nullable="true"
+					foreignKeyName="fk_users_organisational_unit_id"
+					references="organisational_unit(id)" />
+			</column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet author="hlaszlo" id="insert-dummy-org-data">
+  <sql>
+    UPDATE  public.demo_user SET organisational_unit_id = 1 WHERE id=1;
+    UPDATE  public.demo_user SET organisational_unit_id = 1 WHERE id=2;
+    UPDATE  public.demo_user SET organisational_unit_id = 2 WHERE id=3;
+  </sql>
+</changeSet>
 
 </databaseChangeLog>

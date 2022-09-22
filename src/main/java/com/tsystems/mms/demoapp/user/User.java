@@ -39,7 +39,7 @@ public class User implements Serializable {
 	@Column(name = "gender")
 	private GenderEnum gender;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "organisational_unit_id")
 	private OrganisationalUnit organisationalUnit;
 	
