@@ -1,9 +1,13 @@
 package com.tsystems.mms.demoapp.user;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.tsystems.mms.demoapp.user.exception.EmailValidationException;
+import com.tsystems.mms.demoapp.user.exception.UserNotFoundException;
 
 /**
  * This service manages all user.
@@ -47,6 +51,7 @@ public class UserService {
 	 * @return The created user's id.
 	 */
 	public Long createUser(User user) {
+		validateEmail(user.getEmail());
 		return userRepository.save(user).getId();
 	}
 
@@ -71,5 +76,21 @@ public class UserService {
 				.orElseThrow(() -> new UserNotFoundException("User not found with id:" + userId));
 		userRepository.delete(user);
 
+	}
+
+	private static final String EMAIL_REGEX_PATTERN = "^[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)*$";
+
+	/**
+	 * Validates the email based on a regex.
+	 * 
+	 * @param User email.
+	 * @throws EmailValidationException when the email is invalid.
+	 */
+	private void validateEmail(String emailAddress) {
+		boolean isValid = Pattern.compile(EMAIL_REGEX_PATTERN).matcher(emailAddress).matches();
+
+		if (!isValid) {
+			throw new EmailValidationException("Invalid email:" + emailAddress);
+		}
 	}
 }

@@ -29,7 +29,7 @@ public class User implements Serializable {
 	@Column(name = "sur_name", nullable = false)
 	private String surName;
 	
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(name = "gender")
 	private GenderEnum gender;
 

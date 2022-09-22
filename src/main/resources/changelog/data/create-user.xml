@@ -22,7 +22,7 @@
 			<column name="email">fooBar@bar.com</column>
 		</insert>
 	</changeSet>
-	<changeSet id="add-columns-surname-firstname"
+	<changeSet id="add-columns-surname-firstname-gender"
 		author="hlaszlo">
 		<addColumn tableName="demo_user">
 			<column name="first_name" type="varchar(100)"
@@ -33,14 +33,11 @@
 				defaultValue="changeMe">
 				<constraints nullable="false" />
 			</column>
-		</addColumn>
-	</changeSet>
-	<changeSet id="add-gender-column-and-enum" author="hlaszlo">
-		<sql>CREATE TYPE gender_enum AS ENUM ('MALE','FEMALE', 'OTHER')</sql>
-		<addColumn tableName="demo_user">
-			<column name="gender" type="gender_enum" defaultValue="OTHER">
+			<column name="gender" type="varchar(50)"
+				defaultValue="changeMe">
 				<constraints nullable="false" />
 			</column>
 		</addColumn>
 	</changeSet>
+
 </databaseChangeLog>
