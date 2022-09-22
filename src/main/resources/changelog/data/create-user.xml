@@ -52,13 +52,37 @@
 			</column>
 		</addColumn>
 	</changeSet>
-	
+
 	<changeSet author="hlaszlo" id="insert-dummy-org-data">
-  <sql>
-    UPDATE  public.demo_user SET organisational_unit_id = 1 WHERE id=1;
-    UPDATE  public.demo_user SET organisational_unit_id = 1 WHERE id=2;
-    UPDATE  public.demo_user SET organisational_unit_id = 2 WHERE id=3;
-  </sql>
-</changeSet>
+		<sql>
+			UPDATE public.demo_user SET organisational_unit_id = 1 WHERE
+			id=1;
+			UPDATE public.demo_user SET organisational_unit_id = 1 WHERE
+			id=2;
+			UPDATE public.demo_user SET organisational_unit_id = 2 WHERE
+			id=3;
+		</sql>
+	</changeSet>
+	<changeSet author="hlaszlo" id="insert-data-firstname-lastname-gender">
+		<sql>
+			UPDATE public.demo_user SET first_name = 'John' WHERE id=1;
+			UPDATE public.demo_user SET sur_name = 'Doe' WHERE id=1;
+			UPDATE
+			public.demo_user SET gender = 'MALE' WHERE id=1;
+
+			UPDATE public.demo_user SET first_name = 'Andras' WHERE id=2;
+			UPDATE
+			public.demo_user SET sur_name = 'Fekete' WHERE id=2;
+			UPDATE
+			public.demo_user SET gender = 'MALE' WHERE id=2;
+
+			UPDATE public.demo_user SET first_name = 'Anna' WHERE id=3;
+			UPDATE
+			public.demo_user SET sur_name = 'Kiss' WHERE id=3;
+			UPDATE
+			public.demo_user SET gender = 'FEMALE' WHERE id=3;
+
+		</sql>
+	</changeSet>
 
 </databaseChangeLog>

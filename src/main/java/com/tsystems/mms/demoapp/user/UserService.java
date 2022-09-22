@@ -2,12 +2,13 @@ package com.tsystems.mms.demoapp.user;
 
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tsystems.mms.demoapp.user.exception.EmailValidationException;
-import com.tsystems.mms.demoapp.user.exception.UserNotFoundException;
+import com.tsystems.mms.demoapp.user.exceptions.EmailValidationException;
+import com.tsystems.mms.demoapp.user.exceptions.UserNotFoundException;
 
 /**
  * This service manages all user.
@@ -27,8 +28,8 @@ public class UserService {
 	 * 
 	 * @return List of users.
 	 */
-	public List<User> getAll() {
-		return userRepository.findAll();
+	public List<UserDto> getAll() {
+		return userRepository.findAll().stream().map(this::mapToUserDto).collect(Collectors.toList());
 	}
 
 	/**
@@ -38,9 +39,10 @@ public class UserService {
 	 * @throws UserNotFoundException when the user is not found with given id.
 	 * @return The user by given id.
 	 */
-	public User getUserById(Long userId) {
-		return userRepository.findById(userId)
+	public UserDto getUserById(Long userId) {
+		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new UserNotFoundException("User not found with id:" + userId));
+		return mapToUserDto(user);
 	}
 
 	/**
@@ -92,5 +94,17 @@ public class UserService {
 		if (!isValid) {
 			throw new EmailValidationException("Invalid email:" + emailAddress);
 		}
+	}
+
+	private UserDto mapToUserDto(User user) {
+		UserDto userDto = new UserDto();
+		userDto.setEmail(user.getEmail());
+		userDto.setFirstName(user.getFirstName());
+		userDto.setSurName(user.getSurName());
+		userDto.setGender(user.getGender().toString());
+		userDto.setOrganisationalUnit(user.getOrganisationalUnit().getName());
+		userDto.setId(user.getId());
+
+		return userDto;
 	}
 }

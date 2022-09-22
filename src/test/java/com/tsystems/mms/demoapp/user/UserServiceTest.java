@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import com.tsystems.mms.demoapp.user.exception.EmailValidationException;
+import com.tsystems.mms.demoapp.user.exceptions.EmailValidationException;
 
 import java.util.ArrayList;
 import java.util.List;

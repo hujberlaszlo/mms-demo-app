@@ -35,7 +35,7 @@ public class UserController {
 	 * @return A list of users.
 	 */
 	@GetMapping("/user")
-	public ResponseEntity<List<User>> getUsers() {
+	public ResponseEntity<List<UserDto>> getUsers() {
 
 		LOGGER.info("Get all users from the database");
 		return ResponseEntity.ok(userService.getAll());
@@ -58,10 +58,10 @@ public class UserController {
 	/**
 	 * Finds user by id.
 	 * 
-	 * @return The user by given id.
+	 * @param The user by given id.
 	 */
 	@GetMapping("/user/{userId}")
-	public ResponseEntity<User> getUserById(@PathVariable Long userId) {
+	public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
 
 		LOGGER.info("Get user from the database by id" + userId);
 		return ResponseEntity.ok(userService.getUserById(userId));
@@ -70,7 +70,8 @@ public class UserController {
 	/**
 	 * Modify user by given id.
 	 * 
-	 * @param User id. And the values.
+	 * @param User id.
+	 * @param New user data values.
 	 * @return The user by given id.
 	 */
 	@PutMapping("/user/{userId}")
