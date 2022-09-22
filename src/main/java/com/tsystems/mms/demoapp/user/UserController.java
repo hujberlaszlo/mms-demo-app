@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,5 +64,19 @@ public class UserController {
 
 		LOGGER.info("Get user from the database by id" + userId);
 		return ResponseEntity.ok(userService.getUserById(userId));
+	}
+
+	/**
+	 * Modify user by given id.
+	 * 
+	 * @param User id. And the values.
+	 * @return The user by given id.
+	 */
+	@PutMapping("/user/{userId}")
+	public ResponseEntity<Void> updateUserById(@PathVariable Long userId, @RequestBody User user) {
+
+		LOGGER.info("Update user with id:" + userId);
+		userService.updateUser(userId, user);
+		return ResponseEntity.ok().build();
 	}
 }

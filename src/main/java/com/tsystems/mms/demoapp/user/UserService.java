@@ -49,4 +49,15 @@ public class UserService {
 	public Long createUser(User user) {
 		return userRepository.save(user).getId();
 	}
+
+	
+	/**
+	 * Update user.
+	 * 
+	 * @param User id and user updated data.
+	 */
+	public void updateUser(Long userId, User user) {
+		user.setId(userId);
+		userRepository.save(user);
+	}
 }
