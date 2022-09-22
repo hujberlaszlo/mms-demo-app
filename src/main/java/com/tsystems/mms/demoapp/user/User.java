@@ -1,5 +1,6 @@
 package com.tsystems.mms.demoapp.user;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -7,7 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.tsystems.mms.demoapp.organisational_unit.OrganisationalUnit;
+
 import java.io.Serializable;
 
 @Entity
@@ -33,6 +39,10 @@ public class User implements Serializable {
 	@Column(name = "gender")
 	private GenderEnum gender;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "organisational_unit_id")
+	private OrganisationalUnit organisationalUnit;
+	
 	public Long getId() {
 		return id;
 	}
