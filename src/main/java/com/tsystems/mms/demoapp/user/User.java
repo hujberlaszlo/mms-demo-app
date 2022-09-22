@@ -2,6 +2,8 @@ package com.tsystems.mms.demoapp.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,6 +28,10 @@ public class User implements Serializable {
 
 	@Column(name = "sur_name", nullable = false)
 	private String surName;
+	
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "gender")
+	private GenderEnum gender;
 
 	public Long getId() {
 		return id;
@@ -58,5 +64,15 @@ public class User implements Serializable {
 	public void setSurName(String surName) {
 		this.surName = surName;
 	}
+
+	public GenderEnum getGender() {
+		return gender;
+	}
+
+	public void setGender(GenderEnum gender) {
+		this.gender = gender;
+	}
+	
+	
 
 }

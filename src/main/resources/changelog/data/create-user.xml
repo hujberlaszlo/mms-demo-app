@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-    <changeSet id="create-user-tables" author="mse">
-        <createTable tableName="demo_user">
-            <column name="id" autoIncrement="true" type="BIGINT">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="email" type="VARCHAR(512)"/>
-        </createTable>
-    </changeSet>
-    <changeSet id="dummy-user" author="mse">
-        <insert tableName="demo_user">
-            <column name="email">foo@bar.com</column>
-        </insert>
-        <insert tableName="demo_user">
-            <column name="email">bar@foo.com</column>
-        </insert>
-        <insert tableName="demo_user">
-            <column name="email">fooBar@bar.com</column>
-        </insert>
-    </changeSet>
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+	<changeSet id="create-user-tables" author="mse">
+		<createTable tableName="demo_user">
+			<column name="id" autoIncrement="true" type="BIGINT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="email" type="VARCHAR(512)" />
+		</createTable>
+	</changeSet>
+	<changeSet id="dummy-user" author="mse">
+		<insert tableName="demo_user">
+			<column name="email">foo@bar.com</column>
+		</insert>
+		<insert tableName="demo_user">
+			<column name="email">bar@foo.com</column>
+		</insert>
+		<insert tableName="demo_user">
+			<column name="email">fooBar@bar.com</column>
+		</insert>
+	</changeSet>
+	<changeSet id="add-columns-surname-firstname"
+		author="hlaszlo">
+		<addColumn tableName="demo_user">
+			<column name="first_name" type="varchar(100)"
+				defaultValue="changeMe">
+				<constraints nullable="false" />
+			</column>
+			<column name="sur_name" type="varchar(100)"
+				defaultValue="changeMe">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="add-gender-column-and-enum" author="hlaszlo">
+		<sql>CREATE TYPE gender_enum AS ENUM ('MALE','FEMALE', 'OTHER')</sql>
+		<addColumn tableName="demo_user">
+			<column name="gender" type="gender_enum" defaultValue="OTHER">
+				<constraints nullable="false" />
+			</column>
+		</addColumn>
+	</changeSet>
 </databaseChangeLog>
