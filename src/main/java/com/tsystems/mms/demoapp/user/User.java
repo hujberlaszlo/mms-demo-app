@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tsystems.mms.demoapp.organisational_unit.OrganisationalUnit;
 import com.tsystems.mms.demoapp.user.enums.GenderEnum;
 
@@ -41,6 +42,7 @@ public class User implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "organisational_unit_id")
+	@JsonIgnore
 	private OrganisationalUnit organisationalUnit;
 
 	public Long getId() {

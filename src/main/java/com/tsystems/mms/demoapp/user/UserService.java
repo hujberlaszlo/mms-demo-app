@@ -86,6 +86,13 @@ public class UserService {
 
 	}
 
+	/**
+	 * Find user from the database by id.
+	 * 
+	 * @param The user id.
+	 * @throws UserNotFoundException when the user is not found with given id.
+	 * @return User by given id.
+	 */
 	private User findUserById(Long userId) {
 		return userRepository.findById(userId)
 				.orElseThrow(() -> new UserNotFoundException("User not found with id:" + userId));
@@ -125,7 +132,7 @@ public class UserService {
 	}
 
 	/**
-	 * Assigns the user with the given id to the Org unit with the given id.
+	 * Assigns the user with the given id to the Organizational unit with the given id.
 	 * 
 	 * @param User id.
 	 * @param Org  Unit id.

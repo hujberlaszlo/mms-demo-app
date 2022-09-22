@@ -69,6 +69,7 @@ public class UserServiceTest {
 		EmailValidationException exception = Assertions.assertThrows(EmailValidationException.class,
 				() -> userService.createUser(user));
 		Assertions.assertTrue(exception.getMessage().equals("Invalid email:" + user.getEmail()));
+		
 		// Verify
 		Mockito.verify(userRepository, Mockito.never()).save(user);
 	}
