@@ -31,11 +31,22 @@ public class UserService {
 	 * Find user from the database by id.
 	 * 
 	 * @param The user id.
-	 * @throws UserNotFoundException if the user is not found with given id.
-	 * @return One user.
+	 * @throws UserNotFoundException when the user is not found with given id.
+	 * @return The user by given id.
 	 */
 	public User getUserById(Long userId) {
 		return userRepository.findById(userId)
 				.orElseThrow(() -> new UserNotFoundException("User not found with id:" + userId));
+	}
+
+	/**
+	 * Create user.
+	 * 
+	 * @param User to save in database.
+	 * @throws UserNotFoundException when the user is not found with given id.
+	 * @return The created user's id.
+	 */
+	public Long createUser(User user) {
+		return userRepository.save(user).getId();
 	}
 }
