@@ -35,7 +35,7 @@ public class UserController {
 	 * @return A list of users.
 	 */
 	@GetMapping("/user")
-	public ResponseEntity<List<UserDto>> getUsers() {
+	public ResponseEntity<List<User>> getUsers() {
 
 		LOGGER.info("Get all users from the database");
 		return ResponseEntity.ok(userService.getAll());
@@ -92,6 +92,20 @@ public class UserController {
 
 		LOGGER.info("Delete user with id:" + userId);
 		userService.deleteUser(userId);
+		return ResponseEntity.ok().build();
+	}
+	
+	/**
+	 * Assign the organisational unit to the user with given id.
+	 * 
+	 * @param User id.
+	 * @param Organisational unit id.
+	 */
+	@PutMapping("/user/{userId}/{organisationalUnitId}")
+	public ResponseEntity<Void> updateUserById(@PathVariable Long userId, @PathVariable Long organisationalUnitId) {
+
+		LOGGER.info("Assign user id:" + userId + " with organizational unit:" + organisationalUnitId);
+		userService.assignOrganisationalUnit(userId, organisationalUnitId);
 		return ResponseEntity.ok().build();
 	}
 }

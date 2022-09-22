@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.tsystems.mms.demoapp.organisational_unit.OrganisationalUnitRepository;
 import com.tsystems.mms.demoapp.user.exceptions.EmailValidationException;
 
 import java.util.ArrayList;
@@ -18,12 +19,15 @@ public class UserServiceTest {
 	@MockBean
 	private UserRepository userRepository;
 
+	@MockBean
+	private OrganisationalUnitRepository organisationalUnitRepository;
+
 	private UserService userService;
 	private List<User> testUsers;
 
 	@BeforeEach
 	public void setup() {
-		userService = new UserService(userRepository);
+		userService = new UserService(userRepository, organisationalUnitRepository);
 		testUsers = new ArrayList<>();
 		testUsers.add(createUser(1L, "test1.user@foo.bar"));
 		testUsers.add(createUser(2L, "test2.user@foo.bar"));
@@ -79,7 +83,7 @@ public class UserServiceTest {
 		// Assert
 		Long savedUserId = userService.createUser(user);
 		Assertions.assertEquals(user.getId(), savedUserId);
-		
+
 		// Verify
 		Mockito.verify(userRepository).save(user);
 	}
