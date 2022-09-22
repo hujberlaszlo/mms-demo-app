@@ -50,7 +50,6 @@ public class UserService {
 		return userRepository.save(user).getId();
 	}
 
-	
 	/**
 	 * Update user.
 	 * 
@@ -59,5 +58,18 @@ public class UserService {
 	public void updateUser(Long userId, User user) {
 		user.setId(userId);
 		userRepository.save(user);
+	}
+
+	/**
+	 * Create user.
+	 * 
+	 * @param User id.
+	 * @throws UserNotFoundException when the user is not found with given id.
+	 */
+	public void deleteUser(Long userId) {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new UserNotFoundException("User not found with id:" + userId));
+		userRepository.delete(user);
+
 	}
 }

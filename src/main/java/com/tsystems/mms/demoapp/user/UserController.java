@@ -6,6 +6,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,6 +78,19 @@ public class UserController {
 
 		LOGGER.info("Update user with id:" + userId);
 		userService.updateUser(userId, user);
+		return ResponseEntity.ok().build();
+	}
+	
+	/**
+	 * Delete user by given id.
+	 * 
+	 * @param User id. 
+	 */
+	@DeleteMapping("/user/{userId}")
+	public ResponseEntity<Void> deleteUserById(@PathVariable Long userId) {
+
+		LOGGER.info("Delete user with id:" + userId);
+		userService.deleteUser(userId);
 		return ResponseEntity.ok().build();
 	}
 }
